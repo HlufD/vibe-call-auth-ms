@@ -96,3 +96,60 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+# Arch
+```bash
+auth-ms/
+├─ src/
+│  ├─ domain/                 # Pure business logic
+│  │  ├─ entities/            # e.g., User.ts, Role.ts, Permission.ts
+│  │  ├─ value-objects/       # e.g., Email.ts, PasswordHash.ts
+│  │  └─ services/            # domain services (business rules)
+│  │
+│  ├─ application/            # Use cases (orchestrate domain + ports)
+│  │  ├─ dto/                 # Input/output DTOs for use cases
+│  │  ├─ ports/               # interfaces for repositories, queues, etc
+│  │  │   ├─ UserRepository.ts
+│  │  │   ├─ RoleRepository.ts
+│  │  │   └─ MessageQueue.ts
+│  │  └─ services/            # use case implementations
+│  │       ├─ RegisterUserService.ts
+│  │       ├─ LoginUserService.ts
+│  │       └─ AssignRoleService.ts
+│  │
+│  ├─ infrastructure/         # Implementations of ports
+│  │  ├─ db/                  # Prisma adapters
+│  │  │   ├─ UserRepositoryImpl.ts
+│  │  │   ├─ RoleRepositoryImpl.ts
+│  │  │   └─ PrismaClientProvider.ts
+│  │  ├─ queue/               # RabbitMQ adapters
+│  │  │   └─ RabbitMQAdapter.ts
+│  │  └─ cache/               # Redis adapters
+│  │       └─ RedisAdapter.ts
+│  │
+│  ├─ interfaces/             # Controllers / entry points
+│  │  ├─ rest/                # REST controllers
+│  │  │   ├─ UserController.ts
+│  │  │   └─ AuthController.ts
+│  │  └─ grpc/                # Optional gRPC endpoints
+│  │
+│  ├─ shared/                 # Shared utilities
+│  │  ├─ exceptions/
+│  │  ├─ dtos/
+│  │  └─ utils/
+│  │
+│  └─ main.ts                 # NestJS bootstrap
+│
+├─ prisma/
+│  ├─ schema.prisma
+│  └─ migrations/
+│
+├─ tests/
+│  ├─ unit/                   # Unit tests (domain & application)
+│  └─ e2e/                    # End-to-end tests (interfaces)
+│
+├─ package.json
+├─ pnpm-lock.yaml
+├─ tsconfig.json
+└─ docker-compose.yml
