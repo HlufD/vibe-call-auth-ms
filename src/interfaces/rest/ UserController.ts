@@ -1,6 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Inject } from '@nestjs/common';
+import {
+  USER_SERVICE,
+  type IUserService,
+} from 'src/application/ports/UserService';
 
 @Controller('users')
 export default class UserController {
-  constructor() {}
+  constructor(
+    @Inject(USER_SERVICE) private readonly userService: IUserService,
+  ) {}
 }

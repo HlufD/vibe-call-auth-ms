@@ -5,3 +5,5 @@ export interface IUserRepository {
   create(user: IUser): Promise<IUser>;
   update(id: string, user: Partial<IUser>): Promise<IUser>;
 }
+
+export const USER_REPOSITORY = 'USER_REPOSITORY';
