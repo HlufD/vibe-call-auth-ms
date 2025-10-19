@@ -8,7 +8,7 @@ export default class UserServiceImpl implements IUserService {
   constructor(@Inject(USER_REPOSITORY) private readonly: IUserRepository) {}
 
   register(user: IUser): Promise<IUser> {
-    console.log("This the controller")
+    console.log('This the controller');
     return new Promise((resolve) => resolve(user));
   }
 }
