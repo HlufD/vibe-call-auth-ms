@@ -7,8 +7,8 @@ import { IUserService } from '../ports/UserService';
 export default class UserServiceImpl implements IUserService {
   constructor(@Inject(USER_REPOSITORY) private readonly: IUserRepository) {}
 
-  register(userData: Partial<IUser>): Promise<IUser> {
-    console.log(userData);
-    throw new Error('Method not implemented.');
+  register(user: IUser): Promise<IUser> {
+    console.log("This the controller")
+    return new Promise((resolve) => resolve(user));
   }
 }
