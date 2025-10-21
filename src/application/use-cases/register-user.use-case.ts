@@ -1,11 +1,11 @@
-import { ConflictException } from '@nestjs/common';
+import { ConflictException, Inject } from '@nestjs/common';
 import { RegisterUserResponseDto } from '../dto/register-user-response.dto';
-import { IUserRepository } from '../ports/output/IUserRepository';
+import { type IUserRepository, IUserRepositoryToken } from '../ports/output/IUserRepository';
 import { User } from 'src/core/entities/user.entity';
 import { RegisterUserDto } from '../dto/register-user-request.dto';
 
 export class RegisterUserUseCase {
-    constructor(private readonly userRepository: IUserRepository) { }
+    constructor(@Inject(IUserRepositoryToken) private readonly userRepository: IUserRepository) { }
 
     async execute(
         request: RegisterUserDto,
