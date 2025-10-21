@@ -15,18 +15,19 @@ datasource db {
 }
 
 model User {
-  id                 String    @id @default(uuid())
-  email              String    @unique
-  username           String?   @unique
+  id                 String   @id @default(uuid())
+  email              String   @unique
+  username           String?
   password           String
+  roles              String[]
   avatar_url         String?
-  is_verified        Boolean   @default(false)
-  two_factor_enabled Boolean   @default(false)
-  created_at         DateTime  @default(now())
-  updated_at         DateTime?
-  deletedAt          Boolean   @default(false)
-
-  roles Role[]
+  is_verified        Boolean  @default(false)
+  two_factor_enabled Boolean  @default(false)
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+  deletedAt          Boolean  @default(false)
+  Role               Role?    @relation(fields: [roleId], references: [id])
+  roleId             String?
 }
 
 model Role {
