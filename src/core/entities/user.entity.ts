@@ -6,7 +6,7 @@ export class User {
   private readonly email: Email;
   private username: Username;
   private password: string;
-  private roles: string;
+  private roles: string[];
   private avatarUrl?: string;
   private isVerified: boolean;
   private twoFactorEnabled: boolean;
@@ -18,7 +18,7 @@ export class User {
     email: Email,
     username: Username,
     password: string,
-    roles: string = 'user',
+    roles: string[] = [],
     avatarUrl?: string,
     id?: string,
     createdAt?: Date,
@@ -40,6 +40,7 @@ export class User {
     this.updatedAt = updatedAt ?? new Date();
   }
 
+  // Getters (consistent naming)
   getId(): string | undefined {
     return this.id;
   }
@@ -52,41 +53,63 @@ export class User {
     return this.username;
   }
 
-  getRoles(): string {
+  getRoles(): string[] {
     return this.roles;
   }
 
-  isUserVerified(): boolean {
+  getIsVerified(): boolean {
     return this.isVerified;
   }
+
+  getAvatarUrl(): string | undefined {
+    return this.avatarUrl;
+  }
+
+  getTwoFactorEnabled(): boolean {
+    return this.twoFactorEnabled;
+  }
+
+  getIsDeleted(): boolean {
+    return this.isDeleted;
+  }
+
+  getCreatedAt(): Date {
+    return this.createdAt;
+  }
+
+  getUpdatedAt(): Date {
+    return this.updatedAt;
+  }
+
+  // Mutating methods
   verifyEmail(): void {
     if (!this.isVerified) {
       this.isVerified = true;
-      this.touch();
+      this.update();
     }
   }
 
   enableTwoFactor(): void {
     this.twoFactorEnabled = true;
-    this.touch();
+    this.update();
   }
 
   disableTwoFactor(): void {
     this.twoFactorEnabled = false;
-    this.touch();
+    this.update();
   }
 
-  markDeleted(): void {
+  delete(): void {
     this.isDeleted = true;
-    this.touch();
+    this.update();
   }
 
   changePassword(newPassword: string): void {
     this.password = newPassword;
-    this.touch();
+    this.update();
   }
 
-  private touch(): void {
+  private update(): void {
     this.updatedAt = new Date();
   }
 }
