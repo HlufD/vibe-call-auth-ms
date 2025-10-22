@@ -1,13 +1,15 @@
-import { Module } from "@nestjs/common";
-import { RegisterUserUseCase } from "./use-cases/register-user.use-case";
-import { UserRepositoryImpl } from "src/infra/output/db/prisma/UserRepository";
-import { IUserRepositoryToken } from "./ports/output/IUserRepository"
+import { Module } from '@nestjs/common';
+import { RegisterUserUseCase } from './use-cases/register-user.use-case';
+import { IUserRepositoryToken } from './ports/output/IUserRepository';
 
 @Module({
-    providers: [
-        RegisterUserUseCase,
-        { provide: IUserRepositoryToken, useClass: UserRepositoryImpl },
-    ],
-    exports: [RegisterUserUseCase],
+  providers: [
+    RegisterUserUseCase,
+    {
+      provide: IUserRepositoryToken,
+      useValue: {}, // just a placeholder; actual implementation comes from InfraModule
+    },
+  ],
+  exports: [RegisterUserUseCase, IUserRepositoryToken],
 })
-export class ApplicationModule { }
+export class ApplicationModule {}
