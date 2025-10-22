@@ -1,6 +1,6 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { RegisterUserResponseDto } from '../dto/register-user-response.dto';
-import { type IUserRepository, IUserRepositoryToken } from '../ports/output/IUserRepository';
+import { type IUserRepository, IUserRepositoryToken } from '../ports/right/IUserRepository';
 import { User } from 'src/core/entities/user.entity';
 import { RegisterUserDto } from '../dto/register-user-request.dto';
 

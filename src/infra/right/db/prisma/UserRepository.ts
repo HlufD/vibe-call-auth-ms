@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IUserRepository } from 'src/application/ports/output/IUserRepository';
+import { IUserRepository } from 'src/application/ports/right/IUserRepository';
 import { User as DomainUser } from 'src/core/entities/user.entity';
 import { Email } from 'src/core/value-objects/email.value-object';
 import { Username } from 'src/core/value-objects/username.value-object';
