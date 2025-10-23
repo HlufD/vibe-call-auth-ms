@@ -1,5 +1,6 @@
 import { Email } from '../value-objects/email.value-object';
 import { Username } from '../value-objects/username.value-object';
+import { Role } from './role.entity';
 
 export class User {
   private id?: string;

@@ -3,7 +3,7 @@ import { PrismaService } from './db/prisma/Prisma-Service';
 import { UserRepositoryImpl } from './db/prisma/UserRepository';
 
 @Module({
-  providers: [PrismaService,UserRepositoryImpl],
-  exports:[PrismaService,UserRepositoryImpl]
+  providers: [PrismaService, UserRepositoryImpl],
+  exports: [PrismaService, UserRepositoryImpl],
 })
 export class RightInfraModule {}

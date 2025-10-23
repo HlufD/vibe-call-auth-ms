@@ -5,7 +5,7 @@ import { LeftInfraModule } from './infra/left/left-infra.module';
 import { AppController } from './app.controller';
 
 @Module({
-  imports: [ServiceModule,RightInfraModule,LeftInfraModule],
-  controllers:[AppController]
+  imports: [ServiceModule, RightInfraModule, LeftInfraModule],
+  controllers: [AppController],
 })
 export class AppModule {}

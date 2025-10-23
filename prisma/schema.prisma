@@ -19,19 +19,19 @@ model User {
   email              String   @unique
   username           String?
   password           String
-  roles              String[]
   avatar_url         String?
   is_verified        Boolean  @default(false)
   two_factor_enabled Boolean  @default(false)
   created_at         DateTime @default(now())
   updated_at         DateTime @updatedAt
   deletedAt          Boolean  @default(false)
-  Role               Role?    @relation(fields: [roleId], references: [id])
+  roles              Role[]
   roleId             String?
 }
 
 model Role {
   id          String       @id @default(uuid())
+  name        String
   users       User[]
   created_at  DateTime     @default(now())
   updated_at  DateTime?

@@ -5,5 +5,4 @@ export interface IUserRepository {
   save(user: User): Promise<User>;
 }
 
-
 export const IUserRepositoryToken = Symbol('IUserRepository');
