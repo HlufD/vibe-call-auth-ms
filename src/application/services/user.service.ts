@@ -1,12 +1,12 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { RegisterUserResponseDto } from '../dto/register-user-response.dto';
-import { type IUserRepository, IUserRepositoryToken } from '../ports/right/IUserRepository';
+import { IUserRepositoryToken, type IUserRepository } from '../ports/right/IUserRepository';
 import { User } from 'src/core/entities/user.entity';
 import { RegisterUserDto } from '../dto/register-user-request.dto';
 
 @Injectable()
 export class UserService {
-    constructor( private readonly userRepository: IUserRepository) { }
+    constructor(@Inject(IUserRepositoryToken) private readonly userRepository: IUserRepository) { }
 
     async execute(
         request: RegisterUserDto,
