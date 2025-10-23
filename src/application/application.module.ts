@@ -7,7 +7,7 @@ import { IUserRepositoryToken } from './ports/right/IUserRepository';
     RegisterUserUseCase,
     {
       provide: IUserRepositoryToken,
-      useValue: {}, // just a placeholder; actual implementation comes from InfraModule
+      useValue: {}, 
     },
   ],
   exports: [RegisterUserUseCase, IUserRepositoryToken],
