@@ -5,8 +5,8 @@ import { User } from 'src/core/entities/user.entity';
 import { RegisterUserDto } from '../dto/register-user-request.dto';
 
 @Injectable()
-export class RegisterUserUseCase {
-    constructor(@Inject(IUserRepositoryToken) private readonly userRepository: IUserRepository) { }
+export class UserService {
+    constructor( private readonly userRepository: IUserRepository) { }
 
     async execute(
         request: RegisterUserDto,

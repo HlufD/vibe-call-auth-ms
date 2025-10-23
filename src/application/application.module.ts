@@ -1,15 +1,8 @@
 import { Module } from '@nestjs/common';
-import { RegisterUserUseCase } from './use-cases/register-user.use-case';
-import { IUserRepositoryToken } from './ports/right/IUserRepository';
+import { UserService } from './services/register-user.use-case';
 
 @Module({
-  providers: [
-    RegisterUserUseCase,
-    {
-      provide: IUserRepositoryToken,
-      useValue: {}, 
-    },
-  ],
-  exports: [RegisterUserUseCase, IUserRepositoryToken],
+  providers: [UserService],
+  exports:[UserService]
 })
 export class ApplicationModule {}
