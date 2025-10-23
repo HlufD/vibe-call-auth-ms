@@ -1,4 +1,3 @@
-import { Role } from 'src/core/entities/role.entity';
 import { User } from 'src/core/entities/user.entity';
 
 export class RegisterUserResponseDto {
@@ -9,6 +8,7 @@ export class RegisterUserResponseDto {
   avatarUrl?: string;
   isVerified: boolean;
   twoFactorEnabled: boolean;
+  token:string;
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -21,6 +21,7 @@ export class RegisterUserResponseDto {
     avatarUrl?: string;
     isVerified: boolean;
     twoFactorEnabled: boolean;
+    token:string;
     isDeleted: boolean;
     createdAt: Date;
     updatedAt: Date;
@@ -32,20 +33,22 @@ export class RegisterUserResponseDto {
     this.avatarUrl = props.avatarUrl;
     this.isVerified = props.isVerified;
     this.twoFactorEnabled = props.twoFactorEnabled;
+    this.token = props.token
     this.isDeleted = props.isDeleted;
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;
   }
 
-  static fromEntity(user: User): RegisterUserResponseDto {
+  static fromEntity(user: User,token): RegisterUserResponseDto {
     return new RegisterUserResponseDto({
       id: user.getId(),
-      email: user.getEmail().getEmail(),
-      username: user.getUsername().get(),
+      email: user.getEmail().getValue(),
+      username: user.getUsername().getValue(),
       roles: user.getRoles(),
       avatarUrl: user.getAvatarUrl(),
       isVerified: user.getIsVerified(),
       twoFactorEnabled: user.getTwoFactorEnabled(),
+      token,
       isDeleted: user.getIsDeleted(),
       createdAt: user.getCreatedAt(),
       updatedAt: user.getUpdatedAt(),

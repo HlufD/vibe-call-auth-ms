@@ -10,11 +10,11 @@ export class Username {
     this.value = value.toLowerCase();
   }
 
-  get(): string {
+  getValue(): string {
     return this.value;
   }
 
   equals(other: Username): boolean {
-    return this.value === other.get();
+    return this.value === other.getValue();
   }
 }

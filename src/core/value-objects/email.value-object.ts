@@ -8,7 +8,7 @@ export class Email {
     this.email = email;
   }
 
-  getEmail(): string {
+  getValue(): string {
     return this.email;
   }
 

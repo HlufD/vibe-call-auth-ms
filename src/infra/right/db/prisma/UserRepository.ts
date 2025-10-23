@@ -13,13 +13,11 @@ export class UserRepositoryImpl implements IUserRepository {
   async findByEmail(email: string): Promise<DomainUser | null> {
     const user = await this.prisma.user.findUnique({
       where: { email },
-      include: { roles: true }, 
+      include: { roles: true },
     });
     if (!user) return null;
 
-    const roles = user.roles?.map(
-      r => r.name
-    ) ?? [];
+    const roles = user.roles?.map((r) => r.name) ?? [];
 
     return new DomainUser(
       new Email(user.email),
@@ -32,35 +30,35 @@ export class UserRepositoryImpl implements IUserRepository {
       user.updated_at ?? new Date(),
       user.is_verified,
       user.two_factor_enabled,
-      user.deletedAt
+      user.deletedAt,
     );
   }
 
   async save(user: DomainUser): Promise<DomainUser> {
     const saved = await this.prisma.user.create({
       data: {
-        email: user.getEmail().getEmail(),
-        username: user.getUsername().get(),
+        email: user.getEmail().getValue(),
+        username: user.getUsername().getValue(),
         password: user['password'],
         roles: {
-          connect: user.getRoles().map(role => ({ id: role })),
+          connect: user.getRoles().map((role) => ({ id: role })),
         },
         avatar_url: user.getAvatarUrl(),
         is_verified: user.getIsVerified(),
         two_factor_enabled: user.getTwoFactorEnabled(),
         deletedAt: user.getIsDeleted(),
       },
-      include: { roles: {
-        select:{
-            id:true,
-            name:true
-        }
-      } }, 
+      include: {
+        roles: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
     });
 
-    const roles = saved.roles?.map(
-      r =>(r.id, r.name)
-    ) ?? [];
+    const roles = saved.roles?.map((r) => (r.id, r.name)) ?? [];
 
     return new DomainUser(
       new Email(saved.email),
@@ -73,8 +71,7 @@ export class UserRepositoryImpl implements IUserRepository {
       saved.updated_at ?? new Date(),
       saved.is_verified,
       saved.two_factor_enabled,
-      saved.deletedAt
+      saved.deletedAt,
     );
   }
 }
-

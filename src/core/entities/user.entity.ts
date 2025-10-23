@@ -82,7 +82,6 @@ export class User {
     return this.updatedAt;
   }
 
-  // Mutating methods
   verifyEmail(): void {
     if (!this.isVerified) {
       this.isVerified = true;

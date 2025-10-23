@@ -8,7 +8,6 @@ import {
 import { Email } from 'src/core/value-objects/email.value-object';
 import { Username } from 'src/core/value-objects/username.value-object';
 import { User } from 'src/core/entities/user.entity';
-import { Role } from 'src/core/entities/role.entity';
 
 export class RegisterUserDto {
   @IsEmail()
