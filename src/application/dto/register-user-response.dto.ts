@@ -8,7 +8,7 @@ export class RegisterUserResponseDto {
   avatarUrl?: string;
   isVerified: boolean;
   twoFactorEnabled: boolean;
-  token:string;
+  token: string;
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -21,7 +21,7 @@ export class RegisterUserResponseDto {
     avatarUrl?: string;
     isVerified: boolean;
     twoFactorEnabled: boolean;
-    token:string;
+    token: string;
     isDeleted: boolean;
     createdAt: Date;
     updatedAt: Date;
@@ -33,13 +33,13 @@ export class RegisterUserResponseDto {
     this.avatarUrl = props.avatarUrl;
     this.isVerified = props.isVerified;
     this.twoFactorEnabled = props.twoFactorEnabled;
-    this.token = props.token
+    this.token = props.token;
     this.isDeleted = props.isDeleted;
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;
   }
 
-  static fromEntity(user: User,token): RegisterUserResponseDto {
+  static fromEntity(user: User, token): RegisterUserResponseDto {
     return new RegisterUserResponseDto({
       id: user.getId(),
       email: user.getEmail().getValue(),

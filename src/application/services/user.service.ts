@@ -42,13 +42,16 @@ export class UserService {
 
     const savedUser = await this.userRepository.save(user);
 
-    const token = await this.jwtService.sign({
-      id: savedUser.getId(),
-      username: savedUser.getUsername().getValue(),
-      email:savedUser.getEmail().getValue(),
-      roles:savedUser.getRoles(),
-    },{expiresIn:"1h",secret:process.env.JWT_SECRET});
+    const token = await this.jwtService.sign(
+      {
+        id: savedUser.getId(),
+        username: savedUser.getUsername().getValue(),
+        email: savedUser.getEmail().getValue(),
+        roles: savedUser.getRoles(),
+      },
+      { expiresIn: '1h', secret: process.env.JWT_SECRET },
+    );
 
-    return RegisterUserResponseDto.fromEntity(savedUser,token);
+    return RegisterUserResponseDto.fromEntity(savedUser, token);
   }
 }
