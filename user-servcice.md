@@ -220,3 +220,25 @@ It issues and validates tokens, stores user profiles, manages roles and permissi
         │  - Notification Service (emails) │
         │  - Analytics Service (logs)      │
         └───────────────────────────────---┘
+
+
+# Relation with Notification System
+          ┌─────────────────────┐
+          │     Auth Service    │
+          │ (HTTP + Publisher)  │
+          └─────────────────────┘
+                    │
+                    │ emits event
+                    ▼
+       ┌─────────────────────────────┐
+       │        RabbitMQ Broker      │
+       │  (Exchange: user_events)    │
+       │  (Queue: notification_queue)│
+       └─────────────────────────────┘
+                    │
+                    │ consumes
+                    ▼
+        ┌─────────────────────────┐
+        │ Notification Service    │
+        │ (Consumer + Email Send) │
+        └─────────────────────────┘
