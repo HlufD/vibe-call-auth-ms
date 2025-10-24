@@ -14,6 +14,10 @@ import {
   type IJwtService,
   IJwtServiceToken,
 } from 'src/shared/interfaces/IJwtService';
+import {
+  type IQueueService,
+  IQueueServiceToken,
+} from '../ports/right/IQueueService';
 
 @Injectable()
 export class UserService {
@@ -25,6 +29,8 @@ export class UserService {
     private readonly hashingService: IHashingService,
 
     @Inject(IJwtServiceToken) private readonly jwtService: IJwtService,
+
+    @Inject(IQueueServiceToken) private readonly rabitMqService: IQueueService,
   ) {}
 
   async register(request: RegisterUserDto): Promise<RegisterUserResponseDto> {
@@ -36,22 +42,20 @@ export class UserService {
       );
     }
 
+    console.log(request)
     const user: User = request.toEntity();
+    console.log(user)
 
     user.changePassword(await this.hashingService.hash(request.password));
 
     const savedUser = await this.userRepository.save(user);
 
-    const token = await this.jwtService.sign(
-      {
-        id: savedUser.getId(),
-        username: savedUser.getUsername().getValue(),
-        email: savedUser.getEmail().getValue(),
-        roles: savedUser.getRoles(),
-      },
-      { expiresIn: '1h', secret: process.env.JWT_SECRET },
-    );
+    await this.rabitMqService.emit('register_user', {
+      id: savedUser.getId(),
+      email: savedUser.getEmail().getValue(),
+      fullName: savedUser.getFirstName() + savedUser.getLastName(),
+    });
 
-    return RegisterUserResponseDto.fromEntity(savedUser, token);
+    return RegisterUserResponseDto.fromEntity(savedUser);
   }
 }

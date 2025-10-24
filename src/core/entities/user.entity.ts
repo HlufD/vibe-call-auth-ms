@@ -6,6 +6,8 @@ export class User {
   private id?: string;
   private readonly email: Email;
   private username: Username;
+  private firstName: string;
+  private lastName: string;
   private password: string;
   private roles: string[];
   private avatarUrl?: string;
@@ -21,6 +23,8 @@ export class User {
     password: string,
     roles: string[] = [],
     avatarUrl?: string,
+    firstName?: string | null,
+    lastName?: string | null,
     id?: string,
     createdAt?: Date,
     updatedAt?: Date,
@@ -34,6 +38,8 @@ export class User {
     this.roles = roles;
     this.avatarUrl = avatarUrl;
     this.id = id;
+    this.firstName = firstName || '';
+    this.lastName = lastName || '';
     this.isVerified = isVerified;
     this.twoFactorEnabled = twoFactorEnabled;
     this.isDeleted = isDeleted;
@@ -41,7 +47,6 @@ export class User {
     this.updatedAt = updatedAt ?? new Date();
   }
 
-  // Getters (consistent naming)
   getId(): string | undefined {
     return this.id;
   }
@@ -80,6 +85,14 @@ export class User {
 
   getUpdatedAt(): Date {
     return this.updatedAt;
+  }
+
+  getFirstName(): string {
+    return this.firstName;
+  }
+
+  getLastName(): string {
+    return this.lastName;
   }
 
   verifyEmail(): void {

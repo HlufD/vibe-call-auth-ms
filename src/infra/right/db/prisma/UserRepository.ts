@@ -4,7 +4,6 @@ import { User as DomainUser } from 'src/core/entities/user.entity';
 import { Email } from 'src/core/value-objects/email.value-object';
 import { Username } from 'src/core/value-objects/username.value-object';
 import { PrismaService } from './Prisma-Service';
-import { Role } from 'src/core/entities/role.entity';
 
 @Injectable()
 export class UserRepositoryImpl implements IUserRepository {
@@ -25,6 +24,8 @@ export class UserRepositoryImpl implements IUserRepository {
       user.password,
       roles,
       user.avatar_url ?? undefined,
+      user.firstName,
+      user.lastName,
       user.id,
       user.created_at,
       user.updated_at ?? new Date(),
@@ -39,6 +40,8 @@ export class UserRepositoryImpl implements IUserRepository {
       data: {
         email: user.getEmail().getValue(),
         username: user.getUsername().getValue(),
+        firstName:user.getFirstName(),
+        lastName:user.getLastName(),
         password: user['password'],
         roles: {
           connect: user.getRoles().map((role) => ({ id: role })),
@@ -66,6 +69,8 @@ export class UserRepositoryImpl implements IUserRepository {
       saved.password,
       roles,
       saved.avatar_url ?? undefined,
+      saved.firstName,
+      saved.lastName,
       saved.id,
       saved.created_at,
       saved.updated_at ?? new Date(),

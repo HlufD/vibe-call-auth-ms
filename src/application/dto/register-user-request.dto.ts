@@ -8,6 +8,7 @@ import {
 import { Email } from 'src/core/value-objects/email.value-object';
 import { Username } from 'src/core/value-objects/username.value-object';
 import { User } from 'src/core/entities/user.entity';
+import { Optional } from '@nestjs/common';
 
 export class RegisterUserDto {
   @IsEmail()
@@ -16,6 +17,14 @@ export class RegisterUserDto {
   @IsString()
   @IsNotEmpty()
   username: string;
+
+  @Optional()
+  @IsNotEmpty()
+  firstName: string;
+
+  @Optional()
+  @IsNotEmpty()
+  lastName: string;
 
   @IsString()
   @MinLength(6)
@@ -38,6 +47,8 @@ export class RegisterUserDto {
       this.password,
       this.roles ?? [],
       this.avatarUrl,
+      this.firstName,
+      this.lastName,
     );
   }
 }

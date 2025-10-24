@@ -4,6 +4,8 @@ export class RegisterUserResponseDto {
   id?: string;
   email: string;
   username: string;
+  firstName: string;
+  lastName: string;
   roles: string[];
   avatarUrl?: string;
   isVerified: boolean;
@@ -17,11 +19,12 @@ export class RegisterUserResponseDto {
     id?: string;
     email: string;
     username: string;
+    firstName: string;
+    lastName: string;
     roles: string[];
     avatarUrl?: string;
     isVerified: boolean;
     twoFactorEnabled: boolean;
-    token: string;
     isDeleted: boolean;
     createdAt: Date;
     updatedAt: Date;
@@ -29,26 +32,28 @@ export class RegisterUserResponseDto {
     this.id = props.id;
     this.email = props.email;
     this.username = props.username;
+    this.firstName = props.firstName;
+    this.lastName = props.lastName;
     this.roles = props.roles;
     this.avatarUrl = props.avatarUrl;
     this.isVerified = props.isVerified;
     this.twoFactorEnabled = props.twoFactorEnabled;
-    this.token = props.token;
     this.isDeleted = props.isDeleted;
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;
   }
 
-  static fromEntity(user: User, token): RegisterUserResponseDto {
+  static fromEntity(user: User): RegisterUserResponseDto {
     return new RegisterUserResponseDto({
       id: user.getId(),
       email: user.getEmail().getValue(),
+      firstName: user.getFirstName(),
+      lastName: user.getLastName(),
       username: user.getUsername().getValue(),
       roles: user.getRoles(),
       avatarUrl: user.getAvatarUrl(),
       isVerified: user.getIsVerified(),
       twoFactorEnabled: user.getTwoFactorEnabled(),
-      token,
       isDeleted: user.getIsDeleted(),
       createdAt: user.getCreatedAt(),
       updatedAt: user.getUpdatedAt(),

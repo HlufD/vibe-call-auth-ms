@@ -8,6 +8,8 @@ import { IHashingServiceToken } from 'src/shared/interfaces/IHashingService';
 import { HashingServiceImpl } from 'src/shared/utils/hashing.service';
 import { IJwtServiceToken } from 'src/shared/interfaces/IJwtService';
 import { JwtServiceImpl } from 'src/shared/utils/jwt.service';
+import { IQueueServiceToken } from '../ports/right/IQueueService';
+import { RabbitMqQueueServiceImpl } from 'src/infra/right/queue/rabbitmq-queue.service';
 
 @Module({
   imports: [RightInfraModule, SharedModule],
@@ -24,6 +26,10 @@ import { JwtServiceImpl } from 'src/shared/utils/jwt.service';
     {
       provide: IJwtServiceToken,
       useClass: JwtServiceImpl,
+    },
+    {
+      provide: IQueueServiceToken,
+      useClass: RabbitMqQueueServiceImpl,
     },
   ],
   exports: [UserService],
